@@ -39,9 +39,11 @@ export default function LibrarySection() {
             w.muscleGroups.some((t) => t.toLowerCase().includes(q))
         )
       : workouts;
-    return [...filtered].sort((a, b) =>
-      sortBy === "rating" ? b.rating - a.rating : a[sortBy] - b[sortBy]
-    );
+    return [...filtered].sort((a, b) => {
+      if (sortBy === "rating") return b.rating - a.rating;
+      if (sortBy === "calories") return a.caloriesBurned - b.caloriesBurned;
+      return a.duration - b.duration;
+    });
   }, [workouts, query, sortBy]);
 
   return (
